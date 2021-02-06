@@ -2,14 +2,17 @@ let countS = 0;
 let countL = 0;
 
 function keyBoardEvents(e) {
-  if (e.keyCode === 83) {
+  if (e.keyCode === 83) {// On 'S' Pressed
     console.log("I'm S")
-    // On 'S' Pressed
+    let sCount = document.getElementById("countS");
     countS++;
-  } else if (e.keyCode === 76) {
+    sCount.innerHTML = countS;
+  }
+  else if (e.keyCode === 76) {// On 'L' Pressed
     console.log("I'm L")
-    // On 'L' Pressed
+    let LCount = document.getElementById("countL");
     countL++;
+    LCount.innerHTML = countL;
   }
 }
 
@@ -32,8 +35,10 @@ const startGame = function () {
 
   // input validation
   const isInputValid = inputReaderValidator(input.value); //
+
   spinnerAdding();
   if (isInputValid) {
+
     countdown(input.value);
   }
   // the else part needs to dealt with
@@ -67,42 +72,44 @@ const spinnerRemoving = function () {
 
 // document.addEventListener("keypress", keyBoardEvents);
 function declareWinner(userSCounter, userLCounter) {
-  let winner;
-  if (userSCounter > userLCounter) {
-    console.log("Player S wins");
-    winner = 'playerS';
-  } else if (userSCounter < userLCounter) {
-    console.log("Player L wins");
-    winner = 'playerL';
-  } else {
-    console.log("It's a tie");
-    winner = ""
-  }
-  const theWinner = document.getElementById(winner);
-  // no more error when there is tie
-  document.getElementById(winner) ? theWinner.style.backgroundColor = "green" : "";
-  // const confettiSettings = { target: winner };
-  // const confetti = new ConfettiGenerator(confettiSettings);
-  // confetti.render();
+
+	let winner;
+	const tie = document.getElementById("tie");
+	tie.innerHTML = "";
+	if (userSCounter > userLCounter) {
+		console.log("Player S wins");
+		winner = 'playerSCanvas';
+	} else if (userSCounter < userLCounter) {
+		console.log("Player L wins");
+		winner = 'playerLCanvas';
+	} else {
+		console.log("It's a tie");
+	}
+	if (winner) {
+		const confettiSettings = { target: winner, width: 300, height: 200 };
+		const confetti = new ConfettiGenerator(confettiSettings);
+		confetti.render();
+	} else {
+		tie.innerHTML = "It's a tie!"
+	}
+	
 }
 
 function countdown(countDownValue) {
 
   document.addEventListener("keypress", keyBoardEvents);
 
-  let intervalId = setInterval(function () {
-    if (countDownValue >= 0) {
-      countDownValue--;
-      console.log("Timer decremented!");
-    }
-    if (countDownValue === -1) {
-      clearInterval(intervalId);
-      document.removeEventListener("", keyBoardEvents);
-      declareWinner(countS, countL);
-      isGameOver = true;
-
-    }
-  }, 1000);
+  let intervalId = setInterval(function() {
+      if(countDownValue >= 0) {
+        let time = document.getElementById("time");
+        time.value = countDownValue--;
+        console.log("Timer decremented!");
+      }
+      if(countDownValue === -1) {
+        clearInterval(intervalId);
+        document.removeEventListener("keypress", keyBoardEvents);
+        declareWinner(countS,countL);
+        isGameOver = true;
+      }
+    }, 1000);
 }
-
-
