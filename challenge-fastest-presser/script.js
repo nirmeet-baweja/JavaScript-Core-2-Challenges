@@ -12,10 +12,10 @@ function declareWinner(userSCounter, userLCounter) {
 	let winner;
 	if (userSCounter > userLCounter) {
 		console.log("Player S wins");
-		winner = 'my-canvas';
+		winner = 'countS';
 	} else if (userSCounter < userLCounter) {
 		console.log("Player L wins");
-		winner = 'my-canvas';
+		winner = 'countL';
 	} else {
 		console.log("It's a tie");
 	}
