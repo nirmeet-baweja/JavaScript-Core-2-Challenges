@@ -39,6 +39,21 @@ const startGame = function () {
 };
 
 // document.addEventListener("keypress", keyBoardEvents);
+function declareWinner(userSCounter, userLCounter) {
+	let winner;
+	if (userSCounter > userLCounter) {
+		console.log("Player S wins");
+		winner = 'countS';
+	} else if (userSCounter < userLCounter) {
+		console.log("Player L wins");
+		winner = 'countL';
+	} else {
+		console.log("It's a tie");
+	}
+	const confettiSettings = { target: winner };
+	const confetti = new ConfettiGenerator(confettiSettings);
+	confetti.render();
+}
 
 function countdown(countDownValue) {
 
@@ -56,4 +71,5 @@ function countdown(countDownValue) {
       }
     }, 1000);
 }
+
 
