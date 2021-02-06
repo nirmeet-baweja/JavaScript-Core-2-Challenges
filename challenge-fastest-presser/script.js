@@ -1,36 +1,59 @@
-function startGame() { }
+let countS = 0;
+let countL = 0;
+
+function startGame() {}
 
 function keyBoardEvents(e) {
   if (e.keyCode === 83) {
     // On 'S' Pressed
+    countS++;
   } else if (e.keyCode === 76) {
     // On 'L' Pressed
+    countL++;
   }
 }
 
-document.addEventListener("keypress", keyBoardEvents);
-
-
-
-//variables
-const input = document.querySelector(".input") //wrong one -> put a proper one
-
 
 //helper function
-const inputReaderValidator = function () {
-  const input = 21;
-  // const input = input.value;
-  if (input === "" || Number.isNaN(input) || input < 20) {
+const inputReaderValidator = function (inputValue) {
+  if (inputValue === "" || Number.isNaN(inputValue) || inputValue > 20 || inputValue <= 0) {
     //render the warning in html
+    console.log("Input value is invalid");
+    return false;
   }
-  return input;
+  return true;
 };
 
 
 const startGame = function () {
-  const userInput = inputReaderValidator(); //
+  //variables
+  const input = document.querySelector("#time") //wrong one -> put a proper one
+  
   // input validation
-  const timeOfTheGame = userInput * 1000; // setTimeout is taking input in milliseconds so * 1000
-
-
+  const isInputValid = inputReaderValidator(input.value); //
+  
+  if(isInputValid) { 
+    countdown(input.value);
+  }
+  // the esle part needs to dealt with
 };
+
+// document.addEventListener("keypress", keyBoardEvents);
+
+function countdown(countDownValue) {
+
+  document.addEventListener("keypress", keyBoardEvents);
+
+  let intervalId = setInterval(function() {
+      if(countDownValue >= 0) {
+        countDownValue--;
+        console.log("Timer decremented!");
+      }
+      if(timer === -1) {
+        clearInterval(intervalId);
+        document.removeEventListener("", keyBoardEvents);
+        isGameOver = true;
+      }
+    }, 1000);
+}
+
