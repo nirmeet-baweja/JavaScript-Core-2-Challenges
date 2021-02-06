@@ -1,4 +1,4 @@
-// function startGame() { }
+function startGame() { }
 
 function keyBoardEvents(e) {
   if (e.keyCode === 83) {
@@ -23,7 +23,6 @@ const inputReaderValidator = function () {
   if (input === "" || Number.isNaN(input) || input < 20) {
     //render the warning in html
   }
-  // return input
   return input;
 };
 
