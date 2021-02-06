@@ -1,13 +1,13 @@
 let countS = 0;
 let countL = 0;
 
-function startGame() {}
-
 function keyBoardEvents(e) {
   if (e.keyCode === 83) {
+    console.log("I'm S")
     // On 'S' Pressed
     countS++;
   } else if (e.keyCode === 76) {
+    console.log("I'm L")
     // On 'L' Pressed
     countL++;
   }
@@ -43,16 +43,18 @@ function declareWinner(userSCounter, userLCounter) {
 	let winner;
 	if (userSCounter > userLCounter) {
 		console.log("Player S wins");
-		winner = 'countS';
+		winner = 'playerS';
 	} else if (userSCounter < userLCounter) {
 		console.log("Player L wins");
-		winner = 'countL';
+		winner = 'playerL';
 	} else {
 		console.log("It's a tie");
 	}
-	const confettiSettings = { target: winner };
-	const confetti = new ConfettiGenerator(confettiSettings);
-	confetti.render();
+  const theWinner=document.getElementById(winner);
+  theWinner.style.backgroundColor="green";
+	// const confettiSettings = { target: winner };
+	// const confetti = new ConfettiGenerator(confettiSettings);
+	// confetti.render();
 }
 
 function countdown(countDownValue) {
@@ -64,9 +66,10 @@ function countdown(countDownValue) {
         countDownValue--;
         console.log("Timer decremented!");
       }
-      if(timer === -1) {
+      if(countDownValue === -1) {
         clearInterval(intervalId);
         document.removeEventListener("", keyBoardEvents);
+        declareWinner(countS,countL);
         isGameOver = true;
       }
     }, 1000);
