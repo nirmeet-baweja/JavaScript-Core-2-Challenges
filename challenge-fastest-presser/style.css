@@ -3,7 +3,7 @@ body {
 }
 
 canvas {
-  position: fixed;
+  position: absolute;
 }
 
 h2 {
@@ -84,11 +84,10 @@ h1.title {
   }
 }
 
-h2{
+h2 {
   font-size: 3em;
 }
 
-p{
+p {
   font-size: 1.5em;
 }
-

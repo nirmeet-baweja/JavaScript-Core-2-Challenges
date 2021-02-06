@@ -32,14 +32,18 @@ const startGame = function () {
   //variables
   document.querySelector("#btnStart").removeEventListener("onclick", startGame)
   const input = document.querySelector("#time") //wrong one -> put a proper one
-
   // input validation
   const isInputValid = inputReaderValidator(input.value); //
-
-  spinnerAdding();
+  
+  //spinnerAdding();
   if (isInputValid) {
-
+	const paras = document.querySelectorAll("p");
+  	paras.forEach(el => el.innerHTML="")
+	const tie = document.getElementById("tie");
+  	tie.innerHTML = "";
     countdown(input.value);
+  } else {
+	  alert("Input value is invalid");
   }
   // the else part needs to dealt with
 
@@ -52,16 +56,13 @@ const originalGameState = function () {
   countL = countS = 0;
   document.querySelector("#time").value = "";
   document.removeEventListener("keypress", keyBoardEvents);
-
 };
 
 const spinnerAdding = function () {
   const markup = `    
   <div class="spinner">
-
-            <img src="spinner.jpeg" alt="spinner">
-
-        </div>`
+        <img src="spinner.jpeg" alt="spinner">
+    </div>`
   document.querySelector(".content").insertAdjacentHTML("afterbegin", markup);
 
 };
@@ -75,7 +76,6 @@ function declareWinner(userSCounter, userLCounter) {
 
 	let winner;
 	const tie = document.getElementById("tie");
-	tie.innerHTML = "";
 	if (userSCounter > userLCounter) {
 		console.log("Player S wins");
 		winner = 'playerSCanvas';
@@ -86,13 +86,14 @@ function declareWinner(userSCounter, userLCounter) {
 		console.log("It's a tie");
 	}
 	if (winner) {
-		const confettiSettings = { target: winner, width: 300, height: 200 };
+		const confettiSettings = { target: winner, width: 300, height: 200, respawn: false };
 		const confetti = new ConfettiGenerator(confettiSettings);
 		confetti.render();
+		setInterval(()=> confetti.clear(), 2000)
 	} else {
 		tie.innerHTML = "It's a tie!"
 	}
-	
+	originalGameState();
 }
 
 function countdown(countDownValue) {
