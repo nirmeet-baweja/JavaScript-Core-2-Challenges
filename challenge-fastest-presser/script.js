@@ -2,13 +2,13 @@ let countS = 0;
 let countL = 0;
 
 function keyBoardEvents(e) {
-  if (e.keyCode === 83) {// On 'S' Pressed
+  if (e.keyCode === 83 || e.keyCode===115) {// On 'S' Pressed
     console.log("I'm S")
     let sCount = document.getElementById("countS");
     countS++;
     sCount.innerHTML = countS;
   }
-  else if (e.keyCode === 76) {// On 'L' Pressed
+  else if (e.keyCode === 76 || e.keyCode===	108) {// On 'L' Pressed
     console.log("I'm L")
     let LCount = document.getElementById("countL");
     countL++;
