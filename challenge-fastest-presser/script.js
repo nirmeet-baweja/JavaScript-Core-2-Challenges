@@ -1,4 +1,4 @@
-let ountS = 0;
+let countS = 0;
 let countL = 0;
 
 function startGame() {}
