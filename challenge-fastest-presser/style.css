@@ -38,6 +38,7 @@ h1.title{
 
 .player{
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   height:20em;
@@ -47,6 +48,10 @@ h1.title{
   vertical-align: center;
 }
 
-p{
+h2{
   font-size: 3em;
+}
+
+p{
+  font-size: 1.5em;
 }

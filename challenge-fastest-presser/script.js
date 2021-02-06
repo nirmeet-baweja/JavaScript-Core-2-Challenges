@@ -2,12 +2,10 @@ let countS = 0;
 let countL = 0;
 
 function keyBoardEvents(e) {
-  if (e.keyCode === 83) {
-    console.log("I'm S")
+  if (e.keyCode === 83 || e.keyCode===115) {
     // On 'S' Pressed
     countS++;
-  } else if (e.keyCode === 76) {
-    console.log("I'm L")
+  } else if (e.keyCode === 76 || e.keyCode===	108) {
     // On 'L' Pressed
     countL++;
   }
