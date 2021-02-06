@@ -1,3 +1,36 @@
 body {
   background-color: white;
 }
+
+div,input,button,h1,span{
+  display:block;
+  margin:0px;
+  font-size:1em;
+  padding:0px;
+}
+
+input{
+  width:20em;
+  margin:1em;
+}
+
+.button{
+  margin:1em;
+}
+
+.playField{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.player{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height:20em;
+  width:30%;
+  border: 1px solid;
+  text-align: center;
+  vertical-align: center;
+}
