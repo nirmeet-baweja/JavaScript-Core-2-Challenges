@@ -41,20 +41,25 @@ const startGame = function () {
 // document.addEventListener("keypress", keyBoardEvents);
 function declareWinner(userSCounter, userLCounter) {
 	let winner;
+	const tie = document.getElementById("tie");
+	tie.innerHTML = "";
 	if (userSCounter > userLCounter) {
 		console.log("Player S wins");
-		winner = 'playerS';
+		winner = 'playerSCanvas';
 	} else if (userSCounter < userLCounter) {
 		console.log("Player L wins");
-		winner = 'playerL';
+		winner = 'playerLCanvas';
 	} else {
 		console.log("It's a tie");
 	}
-  const theWinner=document.getElementById(winner);
-  theWinner.style.backgroundColor="green";
-	// const confettiSettings = { target: winner };
-	// const confetti = new ConfettiGenerator(confettiSettings);
-	// confetti.render();
+	if (winner) {
+		const confettiSettings = { target: winner, width: 300, height: 200 };
+		const confetti = new ConfettiGenerator(confettiSettings);
+		confetti.render();
+	} else {
+		tie.innerHTML = "It's a tie!"
+	}
+	
 }
 
 function countdown(countDownValue) {
