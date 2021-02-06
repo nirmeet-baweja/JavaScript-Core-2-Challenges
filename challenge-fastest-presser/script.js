@@ -2,14 +2,17 @@ let countS = 0;
 let countL = 0;
 
 function keyBoardEvents(e) {
-  if (e.keyCode === 83) {
+  if (e.keyCode === 83) {// On 'S' Pressed
     console.log("I'm S")
-    // On 'S' Pressed
+    let sCount = document.getElementById("countS");
     countS++;
-  } else if (e.keyCode === 76) {
+    sCount.innerHTML = countS;
+  }
+  else if (e.keyCode === 76) {// On 'L' Pressed
     console.log("I'm L")
-    // On 'L' Pressed
+    let LCount = document.getElementById("countL");
     countL++;
+    LCount.innerHTML = countL;
   }
 }
 
@@ -28,11 +31,11 @@ const inputReaderValidator = function (inputValue) {
 const startGame = function () {
   //variables
   const input = document.querySelector("#time") //wrong one -> put a proper one
-  
+
   // input validation
   const isInputValid = inputReaderValidator(input.value); //
-  
-  if(isInputValid) { 
+
+  if(isInputValid) {
     countdown(input.value);
   }
   // the esle part needs to dealt with
@@ -63,16 +66,15 @@ function countdown(countDownValue) {
 
   let intervalId = setInterval(function() {
       if(countDownValue >= 0) {
-        countDownValue--;
+        let time = document.getElementById("time");
+        time.value = countDownValue--;
         console.log("Timer decremented!");
       }
       if(countDownValue === -1) {
         clearInterval(intervalId);
-        document.removeEventListener("", keyBoardEvents);
+        document.removeEventListener("keypress", keyBoardEvents);
         declareWinner(countS,countL);
         isGameOver = true;
       }
     }, 1000);
 }
-
-
