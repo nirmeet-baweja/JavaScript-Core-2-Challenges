@@ -1,11 +1,9 @@
 function updateWordCount(word, wordCount) {
-  // words already added to the wordCount object
-  words = Object.keys(wordCount);
 
   // if the word is not an empty string
   if(word !== "") {
     // if the word already exists in the object wordCount
-    if(words.includes(word)) {
+    if(wordCount[word] !== undefined) {
       // just increment its counter
       wordCount[word]++;
     }
