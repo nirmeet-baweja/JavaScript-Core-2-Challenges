@@ -1,5 +1,6 @@
 let countS = 0;
 let countL = 0;
+let isGameOver = true;
 
 function keyBoardEvents(e) {
   if (e.keyCode === 83 || e.keyCode===115) {// On 'S' Pressed
@@ -36,13 +37,14 @@ const startGame = function () {
   const isInputValid = inputReaderValidator(input.value); //
   
   //spinnerAdding();
-  if (isInputValid) {
+  if (isInputValid && isGameOver) {
 	const paras = document.querySelectorAll("p");
   	paras.forEach(el => el.innerHTML="")
 	const tie = document.getElementById("tie");
   	tie.innerHTML = "";
+	isGameOver = false;
     countdown(input.value);
-  } else {
+  } else if (isGameOver) {
 	  alert("Input value is invalid");
   }
   // the else part needs to dealt with
@@ -86,10 +88,10 @@ function declareWinner(userSCounter, userLCounter) {
 		console.log("It's a tie");
 	}
 	if (winner) {
-		const confettiSettings = { target: winner, width: 300, height: 200, respawn: false };
+		const confettiSettings = { target: winner, width: 400, height: 300, respawn: false };
 		const confetti = new ConfettiGenerator(confettiSettings);
 		confetti.render();
-		setInterval(()=> confetti.clear(), 2000)
+		setInterval(()=> confetti.clear(), 3000)
 	} else {
 		tie.innerHTML = "It's a tie!"
 	}

@@ -54,8 +54,8 @@ h1.title {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 20em;
-  width: 30%;
+  height: 300px;
+  width: 400px;
   border: 1px solid;
   text-align: center;
   vertical-align: center;
