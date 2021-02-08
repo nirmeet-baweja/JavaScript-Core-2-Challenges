@@ -1,15 +1,16 @@
-let countS = 0;
+// global variables
+let countS = 0; 
 let countL = 0;
+const btnStart = document.querySelector("#btnStart");
+const input = document.querySelector("#time");
 
 function keyBoardEvents(e) {
-  if (e.keyCode === 83 || e.keyCode===115) {// On 'S' Pressed
-    console.log("I'm S")
+  if (e.keyCode === 83 || e.keyCode===115) {  // On 'S' or 's' Pressed
     let sCount = document.getElementById("countS");
     countS++;
     sCount.innerHTML = countS;
   }
-  else if (e.keyCode === 76 || e.keyCode===	108) {// On 'L' Pressed
-    console.log("I'm L")
+  else if (e.keyCode === 76 || e.keyCode===	108) {  // On 'L' or 'l' Pressed
     let LCount = document.getElementById("countL");
     countL++;
     LCount.innerHTML = countL;
@@ -19,9 +20,7 @@ function keyBoardEvents(e) {
 
 //helper function
 const inputReaderValidator = function (inputValue) {
-  if (inputValue === "" || Number.isNaN(inputValue) || inputValue > 20 || inputValue <= 0) {
-    //render the warning in html
-    console.error("Input value is invalid");
+  if (inputValue === "" || Number.isNaN(inputValue) || inputValue > parseInt(input.max) || inputValue < parseInt(input.min)) {
     return false;
   }
   return true;
@@ -29,48 +28,43 @@ const inputReaderValidator = function (inputValue) {
 
 
 const startGame = function () {
-  //variables
-  document.querySelector("#btnStart").removeEventListener("onclick", startGame)
-  const input = document.querySelector("#time") //wrong one -> put a proper one
-
   // input validation
-  const isInputValid = inputReaderValidator(input.value); //
-
-  spinnerAdding();
-  if (isInputValid) {
-
+  const isInputValid = inputReaderValidator(input.value);
+  
+  if (isInputValid) {  btnStart.disabled = true;
+    input.disabled = true;
+    document.addEventListener("keypress", keyBoardEvents);
     countdown(input.value);
+    addSpinner();
+  }else{
+    alert(`Input value is invalid.\nPlease enter a number between ${input.min} and ${input.max}`);
+    reset();
   }
-  // the else part needs to dealt with
-
-  // block the start function
-
 };
 
 //Because Time out is async function we should put it after countdown would end
-const originalGameState = function () {
+function reset() {
+  removeSpinner();
   countL = countS = 0;
-  document.querySelector("#time").value = "";
-  document.removeEventListener("keypress", keyBoardEvents);
-
+  input.disabled = false;
+  input.value = 5;
+  btnStart.disabled = false;  
 };
 
-const spinnerAdding = function () {
+function addSpinner() {
   const markup = `    
   <div class="spinner">
-
-            <img src="spinner.jpeg" alt="spinner">
-
-        </div>`
+    <img src="spinner.jpeg" alt="spinner">
+  </div>`
   document.querySelector(".content").insertAdjacentHTML("afterbegin", markup);
-
 };
 
-const spinnerRemoving = function () {
-  document.querySelector(".spinner").remove();
+function removeSpinner() {
+  if (document.querySelector(".spinner")) {
+    document.querySelector(".spinner").remove();
+  }
 }
 
-// document.addEventListener("keypress", keyBoardEvents);
 function declareWinner(userSCounter, userLCounter) {
 
 	let winner;
@@ -92,7 +86,7 @@ function declareWinner(userSCounter, userLCounter) {
 	} else {
 		tie.innerHTML = "It's a tie!"
 	}
-	
+  reset();
 }
 
 function countdown(countDownValue) {
@@ -103,7 +97,6 @@ function countdown(countDownValue) {
       if(countDownValue >= 0) {
         let time = document.getElementById("time");
         time.value = countDownValue--;
-        console.log("Timer decremented!");
       }
       if(countDownValue === -1) {
         clearInterval(intervalId);
